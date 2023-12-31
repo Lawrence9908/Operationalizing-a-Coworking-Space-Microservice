@@ -1,48 +1,48 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: operatinalizing-a-cowrking-space-microservice
+  name: coworking-space-microservices
 spec:
   selector:
-    service: coworking-space-microservices
+    pp.kubernetes.io/name: coworking-space-microservices
   ports:
   - name: "5050"
     protocol: TCP
-    port: 5150
-    targetPort: 5150
+    port: 5050
+    targetPort: 5050
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: project3-api
+  name: coworking-space-microservices
   labels:
-    service: project3-api
+    name: coworking-space-microservices
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: project3-api
+      service: coworking-space-microservices
   template:
     metadata:
       labels:
-        service: project3-api
+        service: coworking-space-microservices
     spec:
       containers:
-      - name: project3-api
-        image: 669172573612.dkr.ecr.us-east-1.amazonaws.com/udacity3:latest
+      - name: operatinalizing-a-cowrking-space-microservice
+        image: 787450662237.dkr.ecr.us-east-1.amazonaws.com/coworking-space:latest
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /health_check
-            port: 5153
+            port: 5050
           initialDelaySeconds: 5
           timeoutSeconds: 2
         readinessProbe:
           httpGet:
             path: "/readiness_check"
-            port: 5153
+            port: 5050
           initialDelaySeconds: 5
           timeoutSeconds: 5
         envFrom:
