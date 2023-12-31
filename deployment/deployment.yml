@@ -4,12 +4,12 @@ metadata:
   name: project3-api
 spec:
   selector:
-    service: project3-api
+    service: coworking-space-microservices
   ports:
   - name: "5050"
     protocol: TCP
-    port: 5153
-    targetPort: 5153
+    port: 5150
+    targetPort: 5150
 
 ---
 
